@@ -1,4 +1,4 @@
-
+%{
 #include "y.tab.h"
 #include "symtbl.h"
 #include <math.h>
