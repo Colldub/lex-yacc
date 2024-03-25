@@ -5,6 +5,9 @@
 #include <stdlib.h>
 extern void yyerror(char*);
 extern int yylex();
+
+//Global Pointer//
+Node * sym_head = nullptr;
 %}
 
 %union {
@@ -73,6 +76,22 @@ struct sym * sym_lookup(char * s)
     yyerror("Too many symbols");
     exit(-1);
     return NULL; /* unreachable */
+}
+
+struct sym * list_lookup(char * s)
+{
+    Node *ptr = sym_head;
+    while(ptr != nullptr){
+        if(strcmp(ptr->name, s) == 0){
+            return ptr;
+        }
+        ptr = ptr->next;
+    }
+}
+
+int list_count(void)
+{
+
 }
 
 int sym_count(void)
