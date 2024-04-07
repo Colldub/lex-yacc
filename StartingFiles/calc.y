@@ -5,12 +5,7 @@
 #include <stdlib.h>
 extern void yyerror(char*);
 extern int yylex();
-
-//Global Pointer//
-Node * sym_head = nullptr;
 %}
-
-
 
 %union {
     double dval;
@@ -33,25 +28,18 @@ statement_list
 statement
     : NAME '=' expression { $1->value = $3; }
     | expression { printf("= %g\n", $1); }
-    | '?' { printf("num-syms: %d\n", list_count()); }
+    | '?' { printf("num-syms: %d\n", sym_count()); }
     ;
 
 expression
     : expression '+' expression { $$ = $1 + $3; }
     | expression '-' expression { $$ = $1 - $3; }
     | expression '*' expression { $$ = $1 * $3; }
-    | expression '/' expression {
-        if($3 == 0) {
-            printf("divide by zero\n");
-            $$ = $1;
-        }else{
-            $$ = $1 / $3;
-        }
-    }
+    | expression '/' expression { $$ = $1 / $3; }
     | '-' expression %prec UMINUS { $$ = -$2; }
     | '(' expression ')' { $$ = $2; }
     | NUMBER
-    | NAME { $$ = list_lookup($1); }
+    | NAME { $$ = $1->value; }
     ;
 
 %%
@@ -72,34 +60,12 @@ struct sym * sym_lookup(char * s)
             continue;
 
         sp->name = strdup(s);
-        return sp;
+        return sp; 
     }
-
+   
     yyerror("Too many symbols");
     exit(-1);
     return NULL; /* unreachable */
-}
-
-struct sym * list_lookup(char * s)
-{
-    Node *ptr = sym_head;
-    while(ptr != nullptr){
-        if(strcmp(ptr->name, s) == 0){
-            return ptr;
-        }
-        ptr = ptr->next;
-    }
-}
-
-int list_count(void)
-{
-    int count = 0;
-    Node *ptr = sym_head;
-    while(ptr != NULL){
-        ptr = ptr->next;
-        if(ptr == NULL){ break; }
-        count ++;
-    }
 }
 
 int sym_count(void)
@@ -123,3 +89,4 @@ void yyerror(char* s)
 {
     printf("%s\n", s);
 }
+
