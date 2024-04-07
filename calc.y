@@ -7,7 +7,7 @@ extern void yyerror(char*);
 extern int yylex();
 
 //Global Pointer//
-Node * sym_head = nullptr;
+struct sym * sym_head = nullptr;
 %}
 
 
@@ -56,6 +56,7 @@ expression
 
 %%
 
+/*
 struct sym * sym_lookup(char * s)
 {
     char * p;
@@ -64,11 +65,11 @@ struct sym * sym_lookup(char * s)
     for (sp=sym_tbl; sp < &sym_tbl[NSYMS]; sp++)
     {
         if (sp->name && strcmp(sp->name, s) == 0)
-            /* it's already here */
+            // it's already here
             return sp;
 
         if (sp->name)
-            /* skip to next */
+            // skip to next 
             continue;
 
         sp->name = strdup(s);
@@ -77,13 +78,14 @@ struct sym * sym_lookup(char * s)
 
     yyerror("Too many symbols");
     exit(-1);
-    return NULL; /* unreachable */
+    return NULL; // unreachable 
 }
+*/
 
 struct sym * list_lookup(char * s)
 {
-    Node *ptr = sym_head;
-    while(ptr != nullptr){
+    struct sym *ptr = sym_head;
+    while(ptr != NULL){
         if(strcmp(ptr->name, s) == 0){
             return ptr;
         }
@@ -91,17 +93,18 @@ struct sym * list_lookup(char * s)
     }
 }
 
+
 int list_count(void)
 {
     int count = 0;
-    Node *ptr = sym_head;
+    struct sym *ptr = sym_head;
     while(ptr != NULL){
         ptr = ptr->next;
         if(ptr == NULL){ break; }
         count ++;
     }
 }
-
+/*
 int sym_count(void)
 {
     int i, cnt;
@@ -112,6 +115,7 @@ int sym_count(void)
 
     return cnt;
 }
+*/
 
 int main()
 {
