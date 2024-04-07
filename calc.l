@@ -14,7 +14,7 @@
 
 [A-Za-z][A-Za-z0-9]* {
     /* return symbol pointer */
-    yylval.symptr = sym_lookup(yytext);
+    yylval.symptr = list_lookup(yytext);
     return NAME;
     }
 

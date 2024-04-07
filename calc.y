@@ -1,4 +1,4 @@
-%{
+{
 #include "symtbl.h"
 #include <string.h>
 #include <stdio.h>
@@ -91,7 +91,13 @@ struct sym * list_lookup(char * s)
 
 int list_count(void)
 {
-
+    int count = 0;
+    Node *ptr = sym_head;
+    while(ptr != NULL){
+        ptr = ptr->next;
+        if(ptr == NULL){ break; }
+        count ++;
+    }
 }
 
 int sym_count(void)
