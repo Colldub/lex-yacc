@@ -7,7 +7,7 @@ extern void yyerror(char*);
 extern int yylex();
 
 //Global Pointer//
-struct sym * sym_head = nullptr;
+struct sym * sym_head = NULL;
 %}
 
 
