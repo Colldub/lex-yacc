@@ -3,38 +3,41 @@
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
-extern void yyerror(char*);
-extern int yylex();
 
-//Global Pointer//
-struct sym * sym_head = NULL;
-//Global List//
-list symList;
+// Remove the external declarations since we are not using lex
+// extern void yyerror(char*);
+// extern int yylex();
+
+// Global Pointer
+// struct sym * sym_head = NULL;
+
+// Global List
+// list symList;
 
 %}
-
-
 
 %union {
     double dval;
     char *name;
 }
 
-%token <symptr> NAME
+%token <name> NAME
 %token <dval> NUMBER
 %left '-' '+'
 %left '*' '/'
 %nonassoc UMINUS
 
 %type <dval> expression
+
 %%
+
 statement_list
     : statement '\n'
     | statement_list statement '\n'
     ;
 
 statement
-    : NAME '=' expession { symList.AddSym($1, $3); }
+    : NAME '=' expression { AddSym($1, $3); } // Use AddSym to add symbols to the list
     | expression { printf("= %g\n", $1); }
     | '?' { printf("num-syms: %d\n", list_count()); }
     ;
@@ -44,10 +47,10 @@ expression
     | expression '-' expression { $$ = $1 - $3; }
     | expression '*' expression { $$ = $1 * $3; }
     | expression '/' expression {
-        if($3 == 0) {
+        if ($3 == 0) {
             printf("divide by zero\n");
             $$ = $1;
-        }else{
+        } else {
             $$ = $1 / $3;
         }
     }
@@ -59,87 +62,49 @@ expression
 
 %%
 
-/*
-struct sym * sym_lookup(char * s)
-{
-    char * p;
-    struct sym * sp;
-
-    for (sp=sym_tbl; sp < &sym_tbl[NSYMS]; sp++)
-    {
-        if (sp->name && strcmp(sp->name, s) == 0)
-            // it's already here
-            return sp;
-
-        if (sp->name)
-            // skip to next 
-            continue;
-
-        sp->name = strdup(s);
-        return sp;
+// Implement the AddSym function to add symbols to the list
+void AddSym(char *name, double value) {
+    struct sym *ptr = malloc(sizeof(struct sym));
+    if (ptr == NULL) {
+        printf("Memory allocation failed\n");
+        exit(EXIT_FAILURE);
     }
-
-    yyerror("Too many symbols");
-    exit(-1);
-    return NULL; // unreachable 
+    ptr->name = strdup(name);
+    ptr->value = value;
+    ptr->next = sym_head;
+    sym_head = ptr;
 }
-*/
 
-struct sym * list_lookup(char * s)
-{
-    struct sym *ptr = symList.head;
-    while(ptr != NULL){
-        if(strcmp(ptr->name, s) == 0){
+// Implement the list_lookup function to look up symbols in the list
+struct sym *list_lookup(char *s) {
+    struct sym *ptr = sym_head;
+    while (ptr != NULL) {
+        if (strcmp(ptr->name, s) == 0) {
             return ptr;
         }
         ptr = ptr->next;
     }
+    return NULL;
 }
 
-
-int list_count(void)
-{
+// Implement the list_count function to count symbols in the list
+int list_count(void) {
     int count = 0;
-    struct sym *ptr = symList.head;
-    while(ptr != NULL){
+    struct sym *ptr = sym_head;
+    while (ptr != NULL) {
+        count++;
         ptr = ptr->next;
-        if(ptr == NULL){ break; }
-        count ++;
     }
+    return count;
 }
-/*
-int sym_count(void)
-{
-    int i, cnt;
 
-    for (cnt=i=0; i<NSYMS; i++)
-        if (sym_tbl[i].name)
-            cnt++;
-
-    return cnt;
-}
-*/
-
-void AddNode(char *name, double value) {
-        sym *ptr = new sym;
-        ptr->name = strdup(name);
-        ptr->value = value;
-
-        if (head == nullptr) {
-            ptr->next = nullptr;
-        } else {
-            ptr->next = head;
-        }
-        head = ptr;
-    }
-
-int main()
-{
+// Define the main function
+int main() {
     yyparse();
     return 0;
 }
 
-void yyerror(char* s)
-{
+// Define the yyerror function
+void yyerror(char *s) {
     printf("%s\n", s);
 }
