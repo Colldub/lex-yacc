@@ -8,13 +8,16 @@ extern int yylex();
 
 //Global Pointer//
 struct sym * sym_head = NULL;
+//Global List//
+list symList;
+
 %}
 
 
 
 %union {
     double dval;
-    struct sym * symptr;
+    char *name;
 }
 
 %token <symptr> NAME
@@ -31,7 +34,7 @@ statement_list
     ;
 
 statement
-    : NAME '=' expression { $1->value = $3; }
+    : NAME '=' expession { symList.AddSym($1, $3); }
     | expression { printf("= %g\n", $1); }
     | '?' { printf("num-syms: %d\n", list_count()); }
     ;
@@ -84,7 +87,7 @@ struct sym * sym_lookup(char * s)
 
 struct sym * list_lookup(char * s)
 {
-    struct sym *ptr = sym_head;
+    struct sym *ptr = symList.head;
     while(ptr != NULL){
         if(strcmp(ptr->name, s) == 0){
             return ptr;
@@ -97,7 +100,7 @@ struct sym * list_lookup(char * s)
 int list_count(void)
 {
     int count = 0;
-    struct sym *ptr = sym_head;
+    struct sym *ptr = symList.head;
     while(ptr != NULL){
         ptr = ptr->next;
         if(ptr == NULL){ break; }
@@ -116,6 +119,19 @@ int sym_count(void)
     return cnt;
 }
 */
+
+void AddNode(char *name, double value) {
+        sym *ptr = new sym;
+        ptr->name = strdup(name);
+        ptr->value = value;
+
+        if (head == nullptr) {
+            ptr->next = nullptr;
+        } else {
+            ptr->next = head;
+        }
+        head = ptr;
+    }
 
 int main()
 {
