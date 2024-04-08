@@ -1,27 +1,14 @@
 %{
 #include "symtbl.h"
-#include <string.h>
-#include <stdio.h>
-#include <stdlib.h>
-
-// Remove the external declarations since we are not using lex
-// extern void yyerror(char*);
-// extern int yylex();
-
-// Global Pointer
-// struct sym * sym_head = NULL;
-
-// Global List
-// list symList;
-
+#include <math.h>
 %}
 
 %union {
     double dval;
-    char *name;
+    struct sym *symptr; // Declare sym pointer type
 }
 
-%token <name> NAME
+%token <symptr> NAME // Use sym pointer type for NAME token
 %token <dval> NUMBER
 %left '-' '+'
 %left '*' '/'
@@ -37,7 +24,7 @@ statement_list
     ;
 
 statement
-    : NAME '=' expression { AddSym($1, $3); } // Use AddSym to add symbols to the list
+    : NAME '=' expression { AddSym($1->name, $3); } // Use AddSym to add symbols to the list
     | expression { printf("= %g\n", $1); }
     | '?' { printf("num-syms: %d\n", list_count()); }
     ;
@@ -57,54 +44,11 @@ expression
     | '-' expression %prec UMINUS { $$ = -$2; }
     | '(' expression ')' { $$ = $2; }
     | NUMBER
-    | NAME { $$ = list_lookup($1)->value; }
+    | NAME { $$ = $1->value; } // Access the value of the symbol
     ;
 
 %%
 
-// Implement the AddSym function to add symbols to the list
-void AddSym(char *name, double value) {
-    struct sym *ptr = malloc(sizeof(struct sym));
-    if (ptr == NULL) {
-        printf("Memory allocation failed\n");
-        exit(EXIT_FAILURE);
-    }
-    ptr->name = strdup(name);
-    ptr->value = value;
-    ptr->next = sym_head;
-    sym_head = ptr;
-}
-
-// Implement the list_lookup function to look up symbols in the list
-struct sym *list_lookup(char *s) {
-    struct sym *ptr = sym_head;
-    while (ptr != NULL) {
-        if (strcmp(ptr->name, s) == 0) {
-            return ptr;
-        }
-        ptr = ptr->next;
-    }
-    return NULL;
-}
-
-// Implement the list_count function to count symbols in the list
-int list_count(void) {
-    int count = 0;
-    struct sym *ptr = sym_head;
-    while (ptr != NULL) {
-        count++;
-        ptr = ptr->next;
-    }
-    return count;
-}
-
-// Define the main function
-int main() {
-    yyparse();
-    return 0;
-}
-
-// Define the yyerror function
 void yyerror(char *s) {
     printf("%s\n", s);
 }
