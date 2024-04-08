@@ -1,6 +1,6 @@
 %{
-#include "y.tab.h"
 #include "symtbl.h"
+#include "y.tab.h"
 #include <math.h>
 %}
 
@@ -8,18 +8,19 @@
 ([0-9]+|([0-9]*\.[0-9]+)([eE][+-]?[0-9]+)?) {
     yylval.dval = atof(yytext);
     return NUMBER;
-    }
+}
 
 [ \t] ; /* ignore whitespace */
 
 [A-Za-z][A-Za-z0-9]* {
     /* return symbol pointer */
-    yylval.symptr = list_lookup(yytext);
+    yylval.symptr = sym_lookup(yytext); // Change to sym_lookup
     return NAME;
-    }
+}
 
 "$" { return 0; }
 \n |
 . { return yytext[0]; };
 %%
+
 int yywrap() { return 1; }
