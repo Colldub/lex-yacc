@@ -28,10 +28,10 @@ extern int yylex();
 
 %union {
     double dval;
-    struct sym * symptr;
+    char *name;
 }
 
-%token <symptr> NAME
+%token <*name> NAME
 %token <dval> NUMBER
 %left '-' '+'
 %left '*' '/'
@@ -131,7 +131,7 @@ int sym_count(void)
 }
 */
 
-void AddSym(struct sym *name, double value) {
+void AddSym(char *name, double value) {
         struct sym *ptr = (struct sym *)malloc(sizeof(struct sym));
         //node_t *p= (node_t *)malloc(sizeof(node_t)
         //List * listPointer = (List *) malloc(sizeof(List));
