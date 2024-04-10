@@ -17,9 +17,9 @@ struct sym * sym_head = NULL;
 
 //Prototypes//
 void AddSym(char *name, double value);
-struct sym *list_lookup(const char *name);
+struct sym *list_lookup(char *name);
 int list_count(void);
-void yyerror(const char* s);
+//void yyerror(const char* s);
 
 %}
 
@@ -131,7 +131,7 @@ int sym_count(void)
 */
 
 void AddSym(char *name, double value) {
-        struct sym *ptr = new struct sym;
+        struct sym *ptr = new sym;
         ptr->name = strdup(name);
         ptr->value = value;
 
