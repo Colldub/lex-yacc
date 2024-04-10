@@ -16,7 +16,7 @@ struct sym {
 struct sym * sym_head = NULL;
 
 //Prototypes//
-void AddSym(const char *name, double value);
+void AddSym(char *name, double value);
 struct sym *list_lookup(const char *name);
 int list_count(void);
 void yyerror(const char* s);

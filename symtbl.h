@@ -4,10 +4,10 @@
 #define NSYMS (3)
 
 
-int sym_count(void);
-int list_count(void);
-struct sym *sym_lookup(char *);
-struct sym *list_lookup(char *);
-void AddSym(char*, double);
+//int sym_count(void);
+//int list_count(void);
+//struct sym *sym_lookup(char *);
+//struct sym *list_lookup(char *);
+//void AddSym(char*, double);
 
 #endif /* SYMTBL_H */
