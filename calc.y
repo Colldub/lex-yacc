@@ -123,7 +123,8 @@ int sym_count(void)
 */
 
 void AddSym(char *name, double value) {
-        struct sym *ptr = new sym;
+        struct sym *ptr (sym *)malloc(sizeof(sym));
+        //node_t *p= (node_t *)malloc(sizeof(node_t)
         ptr->name = strdup(name);
         ptr->value = value;
 
