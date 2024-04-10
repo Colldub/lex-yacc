@@ -96,12 +96,12 @@ struct sym * sym_lookup(char * s)
 }
 */
 
-struct sym * list_lookup(char * s)
+double list_lookup(char * s)
 {
     struct sym *ptr = sym_head;
     while(ptr != NULL){
         if(strcmp(ptr->name, s) == 0){
-            return ptr;
+            return ptr->value;
         }
         ptr = ptr->next;
     }

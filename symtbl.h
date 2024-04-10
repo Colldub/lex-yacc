@@ -14,7 +14,7 @@
 
    
     void AddSym(char *name, double value);
-    struct sym *list_lookup(char *name);
+    double list_lookup(char *name);
     int list_count(void);
 
 
