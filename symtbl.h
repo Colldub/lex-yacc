@@ -9,7 +9,6 @@
 //struct sym *sym_lookup(char *);
 //struct sym *list_lookup(char *);
 //void AddSym(char*, double);
-#include <string>
 
 using namespace std;
 
