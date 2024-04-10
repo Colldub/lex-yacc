@@ -65,7 +65,7 @@ expression
     | '-' expression %prec UMINUS { $$ = -$2; }
     | '(' expression ')' { $$ = $2; }
     | NUMBER
-    | NAME { $$ = list_lookup($1->name); }
+    | NAME { $$ = list_getVal($1->name); }
     ;
 
 %%
@@ -96,7 +96,18 @@ struct sym * sym_lookup(char * s)
 }
 */
 
-double list_lookup(char * s)
+struct sym * list_lookup(char * s)
+{
+    struct sym *ptr = sym_head;
+    while(ptr != NULL){
+        if(strcmp(ptr->name, s) == 0){
+            return ptr;
+        }
+        ptr = ptr->next;
+    }
+}
+
+double list_getVal(char * s)
 {
     struct sym *ptr = sym_head;
     while(ptr != NULL){
@@ -106,7 +117,6 @@ double list_lookup(char * s)
         ptr = ptr->next;
     }
 }
-
 
 int list_count(void)
 {
