@@ -23,7 +23,7 @@
         double value;
         sym* next;
     };
-    sym* sym_head;
+    struct sym* sym_head;
 
 
 #endif /* SYMTBL_H */
