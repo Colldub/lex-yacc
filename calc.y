@@ -135,7 +135,7 @@ void AddSym(char *name, double value) {
         ptr->name = strdup(name);
         ptr->value = value;
 
-        if (head == NULL) {
+        if (sym_head == NULL) {
             ptr->next = NULL;
         } else {
             ptr->next = sym_head;
