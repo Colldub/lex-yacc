@@ -31,7 +31,7 @@ extern int yylex();
     char *name;
 }
 
-%token <*name> NAME
+%token <name> NAME
 %token <dval> NUMBER
 %left '-' '+'
 %left '*' '/'
