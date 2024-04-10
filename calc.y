@@ -28,10 +28,10 @@ extern int yylex();
 
 %union {
     double dval;
-    char *name;
+    char *symptr;
 }
 
-%token <name> NAME
+%token <symptr> NAME
 %token <dval> NUMBER
 %left '-' '+'
 %left '*' '/'
