@@ -66,7 +66,7 @@ expression
     | '-' expression %prec UMINUS { $$ = -$2; }
     | '(' expression ')' { $$ = $2; }
     | NUMBER
-    | NAME { $$ = list_lookup($1)->value; }
+    | NAME { $$ = list_lookup($1->value); }
     ;
 
 %%
