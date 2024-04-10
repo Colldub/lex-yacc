@@ -97,7 +97,7 @@ struct sym * sym_lookup(char * s)
 
 struct sym * list_lookup(char * s)
 {
-    struct sym *ptr = symList.head;
+    struct sym *ptr = sym_head;
     while(ptr != NULL){
         if(strcmp(ptr->name, s) == 0){
             return ptr;
@@ -110,7 +110,7 @@ struct sym * list_lookup(char * s)
 int list_count(void)
 {
     int count = 0;
-    struct sym *ptr = symList.head;
+    struct sym *ptr = sym_head;
     while(ptr != NULL){
         ptr = ptr->next;
         if(ptr == NULL){ break; }
@@ -131,7 +131,7 @@ int sym_count(void)
 */
 
 void AddSym(char *name, double value) {
-        sym *ptr = new sym;
+        struct sym *ptr = new struct sym;
         ptr->name = strdup(name);
         ptr->value = value;
 
