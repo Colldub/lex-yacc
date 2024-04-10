@@ -6,19 +6,11 @@
 extern void yyerror(char*);
 extern int yylex();
 
-struct sym {
-  char *name;
-  double value;
-  struct sym *next;
-}; //sym_tbl[NSYMS];
-
 //Global Pointer//
-struct sym * sym_head = NULL;
+
 
 //Prototypes//
-void AddSym(char *name, double value);
-struct sym *list_lookup(char *name);
-int list_count(void);
+
 //void yyerror(const char* s);
 
 %}
@@ -97,7 +89,7 @@ struct sym * sym_lookup(char * s)
 
 struct sym * list_lookup(char * s)
 {
-    struct sym *ptr = sym_head;
+    sym *ptr = sym_head;
     while(ptr != NULL){
         if(strcmp(ptr->name, s) == 0){
             return ptr;
@@ -110,7 +102,7 @@ struct sym * list_lookup(char * s)
 int list_count(void)
 {
     int count = 0;
-    struct sym *ptr = sym_head;
+    sym *ptr = sym_head;
     while(ptr != NULL){
         ptr = ptr->next;
         if(ptr == NULL){ break; }
@@ -131,7 +123,7 @@ int sym_count(void)
 */
 
 void AddSym(char *name, double value) {
-        struct sym *ptr = new sym;
+        sym *ptr = new sym;
         ptr->name = strdup(name);
         ptr->value = value;
 
