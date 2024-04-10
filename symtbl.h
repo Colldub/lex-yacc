@@ -18,12 +18,4 @@
     int list_count(void);
 
 
-    struct sym {
-        char* name;
-        double value;
-        struct sym* next;
-    };
-    struct sym* sym_head;
-
-
 #endif /* SYMTBL_H */

@@ -11,6 +11,15 @@ extern int yylex();
 
 //Prototypes//
 
+
+
+    struct sym {
+        char* name;
+        double value;
+        struct sym* next;
+    };
+    struct sym* sym_head;
+
 //void yyerror(const char* s);
 
 %}
@@ -123,7 +132,7 @@ int sym_count(void)
 */
 
 void AddSym(char *name, double value) {
-        sym *ptr (sym *)malloc(sizeof(sym));
+        struct sym *ptr (sym *)malloc(sizeof(sym));
         //node_t *p= (node_t *)malloc(sizeof(node_t)
         //List * listPointer = (List *) malloc(sizeof(List));
         ptr->name = strdup(name);
