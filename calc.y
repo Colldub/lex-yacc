@@ -10,9 +10,6 @@ extern int yylex();
 
 
 //Prototypes//
-void AddSym(char *name, double value);
-char * list_lookup(char *name);
-int list_count(void);
 
 
 
@@ -32,9 +29,10 @@ int list_count(void);
 %union {
     double dval;
     char *name;
+    struct sym * symptr;
 }
 
-%token <name> NAME
+%token <symptr> NAME
 %token <dval> NUMBER
 %left '-' '+'
 %left '*' '/'
@@ -99,12 +97,12 @@ struct sym * sym_lookup(char * s)
 }
 */
 
-char * list_lookup(char * s)
+struct sym * list_lookup(char * s)
 {
     struct sym *ptr = sym_head;
     while(ptr != NULL){
         if(strcmp(ptr->name, s) == 0){
-            return ptr->name;
+            return ptr;
         }
         ptr = ptr->next;
     }
