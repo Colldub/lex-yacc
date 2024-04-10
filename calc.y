@@ -28,7 +28,7 @@ extern int yylex();
 
 %union {
     double dval;
-    char *name;
+    struct sym * symptr;
 }
 
 %token <symptr> NAME
