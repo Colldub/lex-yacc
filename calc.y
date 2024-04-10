@@ -6,10 +6,20 @@
 extern void yyerror(char*);
 extern int yylex();
 
+struct sym {
+  char *name;
+  double value;
+  struct sym *next;
+}; //sym_tbl[NSYMS];
+
 //Global Pointer//
 struct sym * sym_head = NULL;
-//Global List//
-list symList;
+
+//Prototypes//
+void AddSym(const char *name, double value);
+struct sym *list_lookup(const char *name);
+int list_count(void);
+void yyerror(const char* s);
 
 %}
 
@@ -34,7 +44,7 @@ statement_list
     ;
 
 statement
-    : NAME '=' expession { symList.AddSym($1, $3); }
+    : NAME '=' expession { AddSym($1, $3); }
     | expression { printf("= %g\n", $1); }
     | '?' { printf("num-syms: %d\n", list_count()); }
     ;
@@ -120,17 +130,17 @@ int sym_count(void)
 }
 */
 
-void AddNode(char *name, double value) {
+void AddSym(char *name, double value) {
         sym *ptr = new sym;
         ptr->name = strdup(name);
         ptr->value = value;
 
-        if (head == nullptr) {
-            ptr->next = nullptr;
+        if (head == NULL) {
+            ptr->next = NULL;
         } else {
-            ptr->next = head;
+            ptr->next = sym_head;
         }
-        head = ptr;
+        sym_head = ptr;
     }
 
 int main()

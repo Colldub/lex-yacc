@@ -3,11 +3,6 @@
 
 #define NSYMS (3)
 
-struct sym {
-  char *name;
-  double value;
-  struct sym *next;
-}; //sym_tbl[NSYMS];
 
 int sym_count(void);
 int list_count(void);
