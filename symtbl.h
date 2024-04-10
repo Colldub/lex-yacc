@@ -21,7 +21,7 @@
     struct sym {
         char* name;
         double value;
-        sym* next;
+        struct sym* next;
     };
     struct sym* sym_head;
 
