@@ -13,9 +13,7 @@
 
 
    
-    void AddSym(char *name, double value);
-    struct sym *list_lookup(char *name);
-    int list_count(void);
+    
 
 
 #endif /* SYMTBL_H */
