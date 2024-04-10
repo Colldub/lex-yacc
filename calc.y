@@ -45,7 +45,7 @@ statement_list
     ;
 
 statement
-    : NAME '=' expression { AddSym($1->name, $3); }
+    : NAME '=' expression { AddSym($1, $3); }
     | expression { printf("= %g\n", $1); }
     | '?' { printf("num-syms: %d\n", list_count()); }
     ;
