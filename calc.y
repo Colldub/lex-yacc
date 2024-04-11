@@ -170,13 +170,30 @@ void listSyms(){
     }
 }
 
+void freeList(struct sym* head){
+    struct sym* current = head;
+    struct sym* next;
+    
+    while(current != NULL){
+        next = current->next;
+        free(current->vName);
+        free(current);
+        current = next;
+    }
+}
+
 int main()
 {
     yyparse();
+    freeList(sym_head);
     return 0;
 }
 
 void yyerror(char* s)
 {
     printf("%s\n", s);
+}
+
+int yywrap() {
+    return 1; // For EOF
 }
