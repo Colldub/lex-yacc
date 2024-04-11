@@ -53,8 +53,8 @@ statement_list
     ;
 
 statement
-    : NEW_NAME '=' expression { AddSym($1, $3); }
-    | EXISTING_NAME '=' expression { $1->value = $3; }
+    : new_name '=' expression { AddSym($1, $3); }
+    | existing_name '=' expression { $1->value = $3; }
     | expression { printf("= %g\n", $1); }
     | '?' { printf("num-syms: %d\n", list_count()); }
     ;
@@ -74,8 +74,8 @@ expression
     | '-' expression %prec UMINUS { $$ = -$2; }
     | '(' expression ')' { $$ = $2; }
     | NUMBER
-    | EXISTING_NAME { $$ = list_getVal($1); }
-    | NEW_NAME { $$ = 0; AddSym ($1, 0);}
+    | existing_name { $$ = list_getVal($1); }
+    | new_name { $$ = 0; AddSym ($1, 0);}
     ;
 
 new_name 
@@ -83,7 +83,7 @@ new_name
     ;
 
 existing_name 
-    : NAME{ $$ = $1; }
+    : EXISTING_NAME { $$ = $1; }
     ;
 %%
 
