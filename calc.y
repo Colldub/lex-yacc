@@ -80,7 +80,7 @@ expression
     | '-' expression %prec UMINUS { $$ = -$2; }
     | '(' expression ')' { $$ = $2; }
     | NUMBER
-    | NAME { $$ = list_getVal($1->vName); }
+    | NAME { $$ = list_getVal($1); }
     ;
 
 %%
