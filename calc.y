@@ -74,7 +74,7 @@ expression
     | '-' expression %prec UMINUS { $$ = -$2; }
     | '(' expression ')' { $$ = $2; }
     | NUMBER
-    | existing_name { $$ = list_getVal($1); }
+    | existing_name { $$ = list_getVal($1->vName); }
     | new_name { $$ = 0; AddSym ($1, 0);}
     ;
 
