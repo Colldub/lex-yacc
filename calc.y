@@ -194,6 +194,3 @@ void yyerror(char* s)
     printf("%s\n", s);
 }
 
-int yywrap() {
-    return 1; // For EOF
-}
