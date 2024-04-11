@@ -6,21 +6,12 @@
 extern void yyerror(char*);
 extern int yylex();
 
-//Global Pointer//
-
-
-//Prototypes//
-
-
-
     struct sym {
         char* vName;
         double value;
         struct sym* next;
     };
     struct sym* sym_head;
-
-//void yyerror(const char* s);
 
 %}
 
@@ -86,32 +77,6 @@ existing_name
     ;
 %%
 
-/*
-struct sym * sym_lookup(char * s)
-{
-    char * p;
-    struct sym * sp;
-
-    for (sp=sym_tbl; sp < &sym_tbl[NSYMS]; sp++)
-    {
-        if (sp->name && strcmp(sp->name, s) == 0)
-            // it's already here
-            return sp;
-
-        if (sp->name)
-            // skip to next 
-            continue;
-
-        sp->name = strdup(s);
-        return sp;
-    }
-
-    yyerror("Too many symbols");
-    exit(-1);
-    return NULL; // unreachable 
-}
-*/
-
 struct sym * list_lookup(char * s)
 {
     struct sym *ptr = sym_head;
@@ -144,20 +109,8 @@ int list_count(void)
         count ++;
     }
 }
-/*
-int sym_count(void)
-{
-    int i, cnt;
 
-    for (cnt=i=0; i<NSYMS; i++)
-        if (sym_tbl[i].name)
-            cnt++;
-
-    return cnt;
-}
-*/
-
-void AddSym(char *name, double value) {
+void AddSym(char *name, double value){
         struct sym *ptr = (struct sym *)malloc(sizeof(struct sym));
         //node_t *p= (node_t *)malloc(sizeof(node_t)
         //List * listPointer = (List *) malloc(sizeof(List));
@@ -172,6 +125,56 @@ void AddSym(char *name, double value) {
         }
         sym_head = ptr;
     }
+
+void printALL(){
+    // Print count
+    printf("Number of Symbols: %d", list_count());
+    
+    // Print consts
+
+    // Print syms
+    listSyms();
+}
+
+void listSyms(){
+    struct sym *ptr = sym_head;
+    if(ptr == NULL){
+        puts("ptr error");
+        exit(1);
+    }
+
+    char * arr[list_count()];
+    int itt = 0;
+    int size = list_count;
+
+    while (ptr != NULL){
+       arr[itt++] = ptr->name;
+    }
+    for(int i = 0; i < size; i ++){ // Print out array for test
+        ptrintf("[%s] ", arr[i]);   //
+    }                               // 
+    printf("\n");                   //////
+
+
+    //SORT ARRAY////////////
+    
+    //PRINT OUT SYMBOLS////////
+    for(int i = 0; i < size; i ++){
+        ptr = list_lookup(arr[i]);
+
+        printf("%s = %d", ptr->name, ptr->value);
+    }
+}
+
+char *[] SortSyms(){
+    struct sym *ptr = sym_head;
+    char* array[list_count]; //create array the size of list
+    
+    int index = 0;
+    while (ptr != NULL){
+        array[index++] = ptr->
+    }
+}
 
 int main()
 {
