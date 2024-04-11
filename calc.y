@@ -14,7 +14,7 @@ extern int yylex();
 
 
     struct sym {
-        char* name;
+        char* vName;
         double value;
         struct sym* next;
     };
@@ -60,7 +60,7 @@ statement_list
 
 statement
     : NEW_NAME '=' expression { AddSym($1, $3); }
-    | EXISTING_NAME '=' expression { AddSym($1->name, $3); }
+    | EXISTING_NAME '=' expression { AddSym($1->vName, $3); }
     | expression { printf("= %g\n", $1); }
     | '?' { printf("num-syms: %d\n", list_count()); }
     ;
@@ -80,7 +80,7 @@ expression
     | '-' expression %prec UMINUS { $$ = -$2; }
     | '(' expression ')' { $$ = $2; }
     | NUMBER
-    | NAME { $$ = list_getVal($1->name); }
+    | NAME { $$ = list_getVal($1->vName); }
     ;
 
 %%
@@ -115,7 +115,7 @@ struct sym * list_lookup(char * s)
 {
     struct sym *ptr = sym_head;
     while(ptr != NULL){
-        if(strcmp(ptr->name, s) == 0){
+        if(strcmp(ptr->vName, s) == 0){
             return ptr;
         }
         ptr = ptr->next;
@@ -126,7 +126,7 @@ double list_getVal(char * s)
 {
     struct sym *ptr = sym_head;
     while(ptr != NULL){
-        if(strcmp(ptr->name, s) == 0){
+        if(strcmp(ptr->vName, s) == 0){
             return ptr->value;
         }
         ptr = ptr->next;
@@ -161,7 +161,7 @@ void AddSym(char *name, double value) {
         //node_t *p= (node_t *)malloc(sizeof(node_t)
         //List * listPointer = (List *) malloc(sizeof(List));
     
-        ptr->name = strdup(name);
+        ptr->vName = strdup(name);
         ptr->value = value;
 
         if (sym_head == NULL) {
