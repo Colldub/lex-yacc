@@ -17,6 +17,8 @@
     struct sym * list_lookup(char *name);
     double list_getVal(char *name);
     int list_count(void);
+    void listSyms();
+    void printAll();
 
 
 #endif /* SYMTBL_H */
