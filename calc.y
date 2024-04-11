@@ -34,6 +34,7 @@ extern int yylex();
 
 %token <name> NEW_NAME
 %token <symptr> EXISTING_NAME
+%token <name> NAME
 %token <dval> NUMBER
 %left '-' '+'
 %left '*' '/'
