@@ -34,7 +34,6 @@ extern int yylex();
 
 %token <name> NEW_NAME
 %token <symptr> EXISTING_NAME
-%token <name> NAME
 %token <dval> NUMBER
 %left '-' '+'
 %left '*' '/'
@@ -79,7 +78,7 @@ expression
     ;
 
 new_name 
-    : NAME { $$ = $1; }
+    : NEW_NAME { $$ = $1; }
     ;
 
 existing_name 
