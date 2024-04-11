@@ -45,7 +45,7 @@ statement_list
     ;
 
 statement
-    : PRINT { printALL(); }
+    : PRINT { puts("Trying to print"); printALL(); }
     | new_name '=' expression { AddSym($1, $3); }
     | existing_name '=' expression { $1->value = $3; }
     | expression { printf("= %g\n", $1); }
