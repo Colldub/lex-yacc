@@ -108,9 +108,10 @@ int list_count(void)
     struct sym *ptr = sym_head;
     while(ptr != NULL){
         ptr = ptr->next;
-        if(ptr == NULL){ break; }
+        //if(ptr == NULL){ break; }
         count ++;
     }
+    return count;
 }
 
 void AddSym(char *name, double value){
