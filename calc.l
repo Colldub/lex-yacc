@@ -13,9 +13,14 @@
 [ \t] ; /* ignore whitespace */
 
 [A-Za-z][A-Za-z0-9]* {
-    /* return symbol pointer */
-    yylval.symptr = list_lookup(yytext);
-    return NAME;
+        struct sym *symbol = list_lookup(yytext);
+        if(symbol != NULL){
+            yylval.symptr = symbol;
+            return EXISTING_NAME;
+        } else {
+            yylval.name = strdup (yytext);
+            return NEW_NAME;
+        }
     }
 
 "$" { return 0; }

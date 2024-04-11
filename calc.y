@@ -28,10 +28,12 @@ extern int yylex();
 
 %union {
     double dval;
+    char * name;
     struct sym * symptr;
 }
 
-%token <symptr> NAME
+%token <name> NEW_NAME
+%token <symptr> EXISTING_NAME
 %token <dval> NUMBER
 %left '-' '+'
 %left '*' '/'
@@ -39,13 +41,23 @@ extern int yylex();
 
 %type <dval> expression
 %%
+
+new_name 
+    : NAME { $$ = $1; }
+    ;
+
+existing_name 
+    : NAME { $$ = $1; }
+    ;
+
 statement_list
     : statement '\n'
     | statement_list statement '\n'
     ;
 
 statement
-    : NAME '=' expression { AddSym($1, $3); }
+    : NEW_NAME '=' expression { AddSym($1, $3); }
+    | EXISTING_NAME '=' expression { AddSym($1->name, $3); }
     | expression { printf("= %g\n", $1); }
     | '?' { printf("num-syms: %d\n", list_count()); }
     ;
