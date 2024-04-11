@@ -45,13 +45,7 @@ extern int yylex();
 %type <dval> expression
 %%
 
-new_name 
-    : NAME { $$ = $1; }
-    ;
 
-existing_name 
-    : EXISTING_NAME{ $$ = $1; }
-    ;
 
 statement_list
     : statement '\n'
@@ -83,6 +77,13 @@ expression
     | NAME { $$ = list_getVal($1); }
     ;
 
+new_name 
+    : NAME { $$ = $1; }
+    ;
+
+existing_name 
+    : EXISTING_NAME{ $$ = $1; }
+    ;
 %%
 
 /*
