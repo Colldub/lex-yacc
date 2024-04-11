@@ -50,7 +50,7 @@ new_name
     ;
 
 existing_name 
-    : NAME { $$ = $1; }
+    : EXISTING_NAME{ $$ = $1; }
     ;
 
 statement_list
