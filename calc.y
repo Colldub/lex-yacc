@@ -39,6 +39,8 @@ extern int yylex();
 %left '*' '/'
 %nonassoc UMINUS
 
+%type <name> new_name
+%type <symptr> existing_name
 %type <dval> expression
 %%
 
