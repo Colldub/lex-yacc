@@ -145,13 +145,13 @@ void listSyms(){
 
     char * arr[list_count()];
     int itt = 0;
-    int size = list_count;
+    int size = list_count();
 
     while (ptr != NULL){
        arr[itt++] = ptr->vName;
     }
     for(int i = 0; i < size; i ++){ // Print out array for test
-        ptrintf("[%s] ", arr[i]);   //
+        printf("[%s] ", arr[i]);   //
     }                               // 
     printf("\n");                   //////
 
