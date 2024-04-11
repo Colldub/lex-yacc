@@ -54,7 +54,7 @@ statement_list
 
 statement
     : NEW_NAME '=' expression { AddSym($1, $3); }
-    | EXISTING_NAME '=' expression { AddSym($1->vName, $3); }
+    | EXISTING_NAME '=' expression { $1->value = $3; }
     | expression { printf("= %g\n", $1); }
     | '?' { printf("num-syms: %d\n", list_count()); }
     ;
@@ -74,7 +74,8 @@ expression
     | '-' expression %prec UMINUS { $$ = -$2; }
     | '(' expression ')' { $$ = $2; }
     | NUMBER
-    | NAME { $$ = list_getVal($1); }
+    | EXISTING_NAME { $$ = list_getVal($1); }
+    | NEW_NAME { $$ = 0; AddSym ($1, 0);}
     ;
 
 new_name 
