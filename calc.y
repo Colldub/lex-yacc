@@ -21,11 +21,13 @@ extern int yylex();
     double dval;
     char * name;
     struct sym * symptr;
+    char character;
 }
 
 %token <name> NEW_NAME
 %token <symptr> EXISTING_NAME
 %token <dval> NUMBER
+%token <character> PRINT
 %left '-' '+'
 %left '*' '/'
 %nonassoc UMINUS
@@ -43,7 +45,8 @@ statement_list
     ;
 
 statement
-    : new_name '=' expression { AddSym($1, $3); }
+    : PRINT { printALL(); }
+    | new_name '=' expression { AddSym($1, $3); }
     | existing_name '=' expression { $1->value = $3; }
     | expression { printf("= %g\n", $1); }
     | '?' { printf("num-syms: %d\n", list_count()); }

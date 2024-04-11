@@ -5,6 +5,10 @@
 %}
 
 %%
+(\?){
+    return PRINT;
+}
+
 ([0-9]+|([0-9]*\.[0-9]+)([eE][+-]?[0-9]+)?) {
     yylval.dval = atof(yytext);
     return NUMBER;
