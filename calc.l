@@ -16,9 +16,11 @@
         struct sym *symbol = list_lookup(yytext);
         if(symbol != NULL){
             yylval.symptr = symbol;
+            puts("symbol is old");
             return EXISTING_NAME;
         } else {
             yylval.name = strdup (yytext);
+            puts("symbol is new");
             return NEW_NAME;
         }
     }
