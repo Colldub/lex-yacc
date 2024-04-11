@@ -82,7 +82,7 @@ new_name
     ;
 
 existing_name 
-    : EXISTING_NAME{ $$ = $1; }
+    : NAME{ $$ = $1; }
     ;
 %%
 
