@@ -148,7 +148,7 @@ void listSyms(){
     int size = list_count;
 
     while (ptr != NULL){
-       arr[itt++] = ptr->name;
+       arr[itt++] = ptr->vName;
     }
     for(int i = 0; i < size; i ++){ // Print out array for test
         ptrintf("[%s] ", arr[i]);   //
@@ -162,17 +162,7 @@ void listSyms(){
     for(int i = 0; i < size; i ++){
         ptr = list_lookup(arr[i]);
 
-        printf("%s = %d", ptr->name, ptr->value);
-    }
-}
-
-char *[] SortSyms(){
-    struct sym *ptr = sym_head;
-    char* array[list_count]; //create array the size of list
-    
-    int index = 0;
-    while (ptr != NULL){
-        array[index++] = ptr->
+        printf("%s = %d", ptr->vName, ptr->value);
     }
 }
 
