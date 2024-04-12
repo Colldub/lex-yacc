@@ -113,6 +113,7 @@ int list_count(void)
     }
     return count;
     */
+    puts("returning 3");
     return 3;
 }
 
