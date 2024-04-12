@@ -157,10 +157,12 @@ void listSyms(){
     while (ptr != NULL){
        arr[itt++] = ptr->vName;
     }
+    puts("array moved");
     for(int i = 0; i < size; i ++){ // Print out array for test
         printf("[%s] ", arr[i]);   //
     }                               // 
     printf("\n");                   //////
+    puts("Array printed");
 
 
     //SORT ARRAY////////////
