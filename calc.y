@@ -155,7 +155,8 @@ void listSyms(){
     int size = list_count();
 
     while (ptr != NULL){
-       arr[itt++] = ptr->vName;
+       arr[itt] = ptr->vName;
+       itt++;
     }
     puts("array moved");
     for(int i = 0; i < size; i ++){ // Print out array for test
