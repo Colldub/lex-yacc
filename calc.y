@@ -103,7 +103,7 @@ double list_getVal(char * s)
 }
 
 int list_count(void)
-{/*
+{
     int count = 0;
     struct sym *ptr = sym_head;
     while(ptr != NULL){
@@ -111,10 +111,8 @@ int list_count(void)
         //if(ptr == NULL){ break; }
         count ++;
     }
-    return count;
-    */
     puts("returning 3");
-    return 3;
+    return count;
 }
 
 void AddSym(char *name, double value){
@@ -155,8 +153,7 @@ void listSyms(){
     int size = list_count();
 
     while (ptr != NULL){
-       arr[itt] = ptr->vName;
-       itt++;
+       arr[itt++] = ptr->vName;
     }
     puts("array moved");
     for(int i = 0; i < size; i ++){ // Print out array for test
