@@ -175,7 +175,7 @@ void listSyms(){
     }
 }
 
-char **sortStrings(char **array, int size) {
+char **sortArray(char **array, int size) {
     // Bubble sort algorithm
     for (int i = 0; i < size - 1; i++) {
         for (int j = 0; j < size - i - 1; j++) {
