@@ -51,7 +51,7 @@ statement_list
 
 statement
     : PRINT { printALL(); }
-    | new_name '=' expression { addSym($1, $3, sym_head); }
+    | new_name '=' expression { addSym($1, $3); }
     | existing_name '=' expression { $1->value = $3; }
     | expression { printf("= %g\n", $1); }
     | '?' { printf("num-syms: %d\n", list_count()); }
@@ -73,7 +73,7 @@ expression
     | '(' expression ')' { $$ = $2; }
     | NUMBER
     | existing_name { $$ = list_getVal($1->vName); }
-    | new_name { $$ = 0; addSym ($1, 0, sym_head);}
+    | new_name { $$ = 0; addSym ($1, 0);}
     ;
 
 new_name 
@@ -86,8 +86,8 @@ existing_name
 %%
 
 void initList(){
-    addSym("PI", 3.14159, const_head);
-    addSym("PHI", 1.61803, const_head);
+    addSym("PI", 3.14159);
+    addSym("PHI", 1.61803);
 }
 
 void printConsts(){
@@ -129,7 +129,7 @@ int list_count(void)
 }
 
 
-void addSym(char *name, double value, struct sym* head){
+void addSym(char *name, double value,){
         struct sym *ptr = (struct sym *)malloc(sizeof(struct sym));
         //node_t *p= (node_t *)malloc(sizeof(node_t)
         //List * listPointer = (List *) malloc(sizeof(List));
