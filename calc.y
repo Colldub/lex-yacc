@@ -111,7 +111,7 @@ int list_count(void)
         //if(ptr == NULL){ break; }
         count ++;
     }
-    puts("returning %d", count);
+    printf("returning %d", count);
     return count;
 }
 
