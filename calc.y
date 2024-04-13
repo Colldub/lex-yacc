@@ -111,7 +111,7 @@ int list_count(void)
         //if(ptr == NULL){ break; }
         count ++;
     }
-    puts("returning 3");
+    puts("returning %d", count);
     return count;
 }
 
@@ -151,9 +151,14 @@ void listSyms(){
     char * arr[list_count()];
     int itt = 0;
     int size = list_count();
-
+/*
+    while (ptr != NULL){
+        printf("itt num = %d = %s\n", itt, ptr-<)
+    }
+*/
     while (ptr != NULL){
        arr[itt++] = ptr->vName;
+       ptr = ptr->next;
     }
     puts("array moved");
     for(int i = 0; i < size; i ++){ // Print out array for test
