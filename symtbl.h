@@ -19,7 +19,7 @@
     int list_count(void);
     void listSyms();
     void printAll();
-    char **sortArray(char**, int);
+    void sortArray(char**, int);
 
 
 #endif /* SYMTBL_H */
