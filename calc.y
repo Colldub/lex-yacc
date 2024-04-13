@@ -151,31 +151,45 @@ void listSyms(){
     char * arr[list_count()];
     int itt = 0;
     int size = list_count();
-/*
-    while (ptr != NULL){
-        printf("itt num = %d = %s\n", itt, ptr-<)
-    }
-*/
+
     while (ptr != NULL){
        arr[itt++] = ptr->vName;
        ptr = ptr->next;
     }
+/*
     puts("array moved");
     for(int i = 0; i < size; i ++){ // Print out array for test
         printf("[%s] ", arr[i]);   //
     }                               // 
     printf("\n");                   //////
-    puts("Array printed");
-
+*/
 
     //SORT ARRAY////////////
+    arr = sortArray(arr, size);
     
     //PRINT OUT SYMBOLS////////
     for(int i = 0; i < size; i ++){
         ptr = list_lookup(arr[i]);
 
-        printf("%s = %d", ptr->vName, ptr->value);
+        printf("%s = %d\n", ptr->vName, ptr->value);
     }
+}
+
+char **sortStrings(char **array, int size) {
+    // Bubble sort algorithm
+    for (int i = 0; i < size - 1; i++) {
+        for (int j = 0; j < size - i - 1; j++) {
+            if (strcmp(array[j], array[j + 1]) > 0) {
+                // Swap two strings
+                char *temp = array[j];
+                array[j] = array[j + 1];
+                array[j + 1] = temp;
+            }
+        }
+    }
+
+    // Return the sorted array
+    return array;
 }
 
 void freeList(struct sym* head){
