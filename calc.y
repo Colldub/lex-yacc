@@ -86,8 +86,8 @@ existing_name
 %%
 
 void initList(){
-    addSym(PI, 3.14159, const_head);
-    addSym(PHI, 1.61803, const_head);
+    addSym("PI", 3.14159, const_head);
+    addSym("PHI", 1.61803, const_head);
 }
 
 void printConsts(){
