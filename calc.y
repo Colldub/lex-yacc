@@ -12,6 +12,11 @@ extern int yylex();
         struct sym* next;
     };
     struct sym* sym_head;
+    struct sym* const_head;
+
+    void initialize(){
+        initList();
+    }
 
 %}
 
@@ -45,8 +50,8 @@ statement_list
     ;
 
 statement
-    : PRINT { puts("Trying to print"); printALL(); }
-    | new_name '=' expression { AddSym($1, $3); }
+    : PRINT { printALL(); }
+    | new_name '=' expression { addSym($1, $3, sym_head); }
     | existing_name '=' expression { $1->value = $3; }
     | expression { printf("= %g\n", $1); }
     | '?' { printf("num-syms: %d\n", list_count()); }
@@ -68,7 +73,7 @@ expression
     | '(' expression ')' { $$ = $2; }
     | NUMBER
     | existing_name { $$ = list_getVal($1->vName); }
-    | new_name { $$ = 0; AddSym ($1, 0);}
+    | new_name { $$ = 0; addSym ($1, 0, sym_head);}
     ;
 
 new_name 
@@ -79,6 +84,15 @@ existing_name
     : EXISTING_NAME { $$ = $1; }
     ;
 %%
+
+void initList(){
+    addSym(PI, 3.14159, const_head);
+    addSym(PHI, 1.61803, const_head);
+}
+
+void printConsts(){
+
+}
 
 struct sym * list_lookup(char * s)
 {
@@ -111,11 +125,11 @@ int list_count(void)
         //if(ptr == NULL){ break; }
         count ++;
     }
-    printf("returning %d", count);
     return count;
 }
 
-void AddSym(char *name, double value){
+
+void addSym(char *name, double value, struct sym* head){
         struct sym *ptr = (struct sym *)malloc(sizeof(struct sym));
         //node_t *p= (node_t *)malloc(sizeof(node_t)
         //List * listPointer = (List *) malloc(sizeof(List));
@@ -123,17 +137,17 @@ void AddSym(char *name, double value){
         ptr->vName = strdup(name);
         ptr->value = value;
 
-        if (sym_head == NULL) {
+        if (head == NULL) {
             ptr->next = NULL;
         } else {
-            ptr->next = sym_head;
+            ptr->next = head;
         }
-        sym_head = ptr;
-    }
+        head = ptr;
+}
 
 void printALL(){
     // Print count
-    printf("Number of Symbols: %d", list_count());
+    printf("Number of Symbols: %d\n", list_count());
     
     // Print consts
 
