@@ -22,7 +22,7 @@
             yylval.symptr = symbol;
             return CONST_NAME;
         }
-        symbol = sym_lookup(yytext);
+        symbol = list_lookup(yytext);
         if(symbol != NULL){
             yylval.symptr = symbol;
             //puts("symbol is old");
