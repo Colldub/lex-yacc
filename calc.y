@@ -250,15 +250,20 @@ struct sym * const_lookup(char *s){
     }
 }
 
-double const_getVal(char * s){
+double const_getVal(char *s) {
     struct sym *ptr = const_head;
-    while(ptr != NULL){
-        if(strcmp(ptr->vName, s) == 0){
+    while(ptr != NULL) {
+        printf("Checking constant: %s\n", ptr->vName);
+        if(strcmp(ptr->vName, s) == 0) {
+            printf("Found constant %s with value %f\n", ptr->vName, ptr->value);
             return ptr->value;
         }
         ptr = ptr->next;
     }
+    printf("Constant %s not found\n", s);
+    return 0; // Or whatever default value you want to return if the constant is not found
 }
+
 
 void printConsts(){
     puts("Printing out consts");
