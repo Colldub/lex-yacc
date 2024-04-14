@@ -240,7 +240,7 @@ double const_getVal(char * s){
 void printConsts(){
     struct sym *ptr = const_head;
     while(ptr != NULL){
-        printf("%s = %d",ptr->vName, ptr->value);
+        printf("%t%s = %d\n",ptr->vName, ptr->value);
         ptr = ptr->next;
     }
 }
