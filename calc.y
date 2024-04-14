@@ -231,8 +231,9 @@ void addConst(char *name, double value){
             ptr->next = const_head;
             puts("added second value");
         }
-        printf("setting ptr: %s = %s\n", ptr->vName, const_getVal(ptr->vName));
         const_head = ptr;
+        printf("setting ptr: %s = %s\n", ptr->vName, const_getVal(ptr->vName));
+
 }
 
 struct sym * const_lookup(char *s){
