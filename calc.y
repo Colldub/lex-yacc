@@ -30,8 +30,8 @@ extern int yylex();
 }
 
 %token <name> NEW_NAME
-%token <symptr> EXISTING_NAME
-%token <symptr> CONST_NAME
+%token <name> EXISTING_NAME
+%token <name> CONST_NAME
 %token <dval> NUMBER
 %token <character> PRINT
 %left '-' '+'
@@ -39,8 +39,8 @@ extern int yylex();
 %nonassoc UMINUS
 
 %type <name> new_name
-%type <name> existing_name
-%type <name> const_name
+%type <symptr> existing_name
+%type <symptr> const_name
 %type <dval> expression
 %%
 
