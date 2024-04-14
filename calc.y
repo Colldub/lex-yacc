@@ -39,8 +39,8 @@ extern int yylex();
 %nonassoc UMINUS
 
 %type <name> new_name
-%type <symptr> existing_name
-%type <symptr> const_name
+%type <name> existing_name
+%type <name> const_name
 %type <dval> expression
 %%
 
@@ -81,7 +81,7 @@ expression
     ;
 
 const_name
-    : CONST_NAME { $$ = $1; }
+    : CONST_NAME { $$ = const_lookup($1); }
     ;
 
 new_name 
@@ -89,7 +89,7 @@ new_name
     ;
 
 existing_name 
-    : EXISTING_NAME { $$ = $1; }
+    : EXISTING_NAME { $$ = list_lookup($1); }
     ;
 %%
 
