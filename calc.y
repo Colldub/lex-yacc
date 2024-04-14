@@ -223,7 +223,7 @@ void addConst(char *name, double value){
 
 }
 
-int const_count(void)
+int const_count()
 {
     int count = 0;
     struct sym *ptr = const_head;
