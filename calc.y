@@ -55,7 +55,7 @@ statement
     : PRINT { printALL(); }
     | new_name '=' expression { addSym($1, $3); }
     | existing_name '=' expression { $1->value = $3; }
-    | const_name '=' expression { puts("Can not edit Constant variables"); }
+    | const_name '=' expression { puts("assign to const"); }
     | expression { printf("= %g\n", $1); }
     | '?' { printf("num-syms: %d\n", list_count()); }
     ;
@@ -148,7 +148,7 @@ void addSym(char *name, double value){
 
 void printALL(){
     // Print count
-    printf("Number of Symbols: %d\n", list_count());
+    printf("Number of Symbols: %d\n", list_count()+const_count());
     
     // Print consts
     printConsts();
@@ -181,7 +181,7 @@ void listSyms() {
     for (int i = 0; i < size; i++) {
         ptr = list_lookup(arr[i]);
 
-        printf("%s = %g\n", ptr->vName, ptr->value);
+        printf("\t%s = %g\n", ptr->vName, ptr->value);
     }
 }
 
@@ -221,6 +221,18 @@ void addConst(char *name, double value){
             printf("Allocation error 11");
         }
 
+}
+
+int const_count(void)
+{
+    int count = 0;
+    struct sym *ptr = const_head;
+    while(ptr != NULL){
+        ptr = ptr->next;
+        //if(ptr == NULL){ break; }
+        count ++;
+    }
+    return count;
 }
 
 struct sym * const_lookup(char *s){
