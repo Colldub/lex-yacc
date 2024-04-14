@@ -192,7 +192,7 @@ void listSyms() {
     for (int i = 0; i < size; i++) {
         ptr = list_lookup(arr[i]);
 
-        printf("%s = %f\n", ptr->vName, ptr->value);
+        printf("%s = %g\n", ptr->vName, ptr->value);
     }
 
     printf("Exiting listSyms()\n");
@@ -236,7 +236,7 @@ void addConst(char *name, double value){
         if(ptr == NULL){
             printf("Allocation error 11");
         }
-        printf("const_getVal RETURNS: %f", const_getVal(ptr->vName));
+        printf("const_getVal RETURNS: %d", const_getVal(ptr->vName));
         printf("setting ptr: %s = %d\n", ptr->vName, const_getVal(ptr->vName));
 
 }
@@ -271,7 +271,7 @@ void printConsts(){
     struct sym *ptr = const_head;
     printf("ptr: %s = %s\n", ptr->vName, const_getVal(ptr->vName));
     while(ptr != NULL){
-        printf("\t%s = %d\n",ptr->vName, const_getVal(ptr->vName));
+        printf("\t%s = %g\n",ptr->vName, const_getVal(ptr->vName));
         ptr = ptr->next;
     }
 }
