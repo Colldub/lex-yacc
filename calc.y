@@ -75,8 +75,8 @@ expression
     | '-' expression %prec UMINUS { $$ = -$2; }
     | '(' expression ')' { $$ = $2; }
     | NUMBER
-    | const_name { $$ = const_getVal ($1->vName); }
-    | existing_name { $$ = list_getVal($1->vName); }
+    | const_name { $$ = const_getVal ((const_lookup($1))->vName); }
+    | existing_name { $$ = list_getVal((list_lookup($1))->vName); }
     | new_name { $$ = 0; addSym ($1, 0);}
     ;
 
@@ -211,8 +211,10 @@ void addConst(char *name, double value){
 
         if (const_head == NULL) {
             ptr->next = NULL;
+            puts("added first value");
         } else {
             ptr->next = const_head;
+            puts("added second value");
         }
         const_head = ptr;
 }
