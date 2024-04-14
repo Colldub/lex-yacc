@@ -161,8 +161,7 @@ void listSyms() {
 
     struct sym *ptr = sym_head;
     if (ptr == NULL) {
-        puts("ptr error");
-        exit(1);
+        return;
     }
 
     char * arr[list_count()];
