@@ -30,8 +30,8 @@ extern int yylex();
 }
 
 %token <name> NEW_NAME
-%token <name> EXISTING_NAME
-%token <name> CONST_NAME
+%token <symptr> EXISTING_NAME
+%token <symptr> CONST_NAME
 %token <dval> NUMBER
 %token <character> PRINT
 %left '-' '+'
@@ -81,7 +81,7 @@ expression
     ;
 
 const_name
-    : CONST_NAME { $$ = const_lookup($1); }
+    : CONST_NAME { $$ = $1; }
     ;
 
 new_name 
@@ -89,7 +89,7 @@ new_name
     ;
 
 existing_name 
-    : EXISTING_NAME { $$ = list_lookup($1); }
+    : EXISTING_NAME { $$ = $1; }
     ;
 %%
 
