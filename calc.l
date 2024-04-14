@@ -21,7 +21,9 @@
         if(symbol != NULL){
             yylval.symptr = symbol;
             return CONST_NAME;
-        }else if(symbol != NULL){
+        }
+        symbol = sym_lookup(yytext);
+        if(symbol != NULL){
             yylval.symptr = symbol;
             //puts("symbol is old");
             return EXISTING_NAME;
