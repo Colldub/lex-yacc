@@ -23,7 +23,7 @@
     void printAll();
     void sortArray(char**, int);
     void initList();
-    void const_count();
+    int const_count();
     void printConsts();
     void addConst(char*, double);
 
