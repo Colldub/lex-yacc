@@ -148,7 +148,7 @@ void addSym(char *name, double value){
 
 void printALL(){
     // Print count
-    printf("Number of Symbols: %d\n", list_count()+const_count());
+    printf("num-syms: %d\n", list_count()+const_count());
     
     // Print consts
     printConsts();
@@ -181,7 +181,7 @@ void listSyms() {
     for (int i = 0; i < size; i++) {
         ptr = list_lookup(arr[i]);
 
-        printf("\t%s = %g\n", ptr->vName, ptr->value);
+        printf("\t%s => %g\n", ptr->vName, ptr->value);
     }
 }
 
@@ -260,7 +260,7 @@ double const_getVal(char *s) {
 void printConsts(){
     struct sym *ptr = const_head;
     while(ptr != NULL){
-        printf("\t%s = %g\n",ptr->vName, const_getVal(ptr->vName));
+        printf("\t%s => %g\n",ptr->vName, const_getVal(ptr->vName));
         ptr = ptr->next;
     }
 }
