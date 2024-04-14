@@ -236,7 +236,8 @@ void addConst(char *name, double value){
         if(ptr == NULL){
             printf("Allocation error 11");
         }
-        printf("setting ptr: %s = %s\n", ptr->vName, const_getVal(ptr->vName));
+        //printf("const_getVal RETURNS: ")
+        printf("setting ptr: %s = %d\n", ptr->vName, const_getVal(ptr->vName));
 
 }
 
