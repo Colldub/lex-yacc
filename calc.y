@@ -158,15 +158,12 @@ void printALL(){
 }
 
 void listSyms() {
-    printf("Entering listSyms()\n");
 
     struct sym *ptr = sym_head;
     if (ptr == NULL) {
         puts("ptr error");
         exit(1);
     }
-
-    printf("Building array of symbol names...\n");
 
     char * arr[list_count()];
     int itt = 0;
@@ -177,16 +174,8 @@ void listSyms() {
         ptr = ptr->next;
     }
 
-    printf("Sorting array of symbol names...\n");
-
     // SORT ARRAY
     sortArray(arr, size);
-
-    for (int i = 0; i < size; i++){
-        printf("section: %d = %s", i, arr[i]);
-    }
-
-    printf("Printing sorted symbols...\n");
 
     // PRINT OUT SYMBOLS
     for (int i = 0; i < size; i++) {
@@ -194,8 +183,6 @@ void listSyms() {
 
         printf("%s = %g\n", ptr->vName, ptr->value);
     }
-
-    printf("Exiting listSyms()\n");
 }
 
 
@@ -226,18 +213,13 @@ void addConst(char *name, double value){
 
         if (const_head == NULL) {
             ptr->next = NULL;
-            puts("added first value");
         } else {
             ptr->next = const_head;
-            puts("added second value");
         }
         const_head = ptr;
-        printf("ptr->vName: %s\n", ptr->vName);
         if(ptr == NULL){
             printf("Allocation error 11");
         }
-        printf("const_getVal RETURNS: %d", const_getVal(ptr->vName));
-        printf("setting ptr: %s = %d\n", ptr->vName, const_getVal(ptr->vName));
 
 }
 
@@ -254,22 +236,17 @@ struct sym * const_lookup(char *s){
 double const_getVal(char *s) {
     struct sym *ptr = const_head;
     while(ptr != NULL) {
-        printf("Checking constant: %s\n", ptr->vName);
         if(strcmp(ptr->vName, s) == 0) {
-            printf("Found constant %s with value %f\n", ptr->vName, ptr->value);
             return ptr->value;
         }
         ptr = ptr->next;
     }
-    printf("Constant %s not found\n", s);
     return 0; // Or whatever default value you want to return if the constant is not found
 }
 
 
 void printConsts(){
-    puts("Printing out consts");
     struct sym *ptr = const_head;
-    printf("ptr: %s = %s\n", ptr->vName, const_getVal(ptr->vName));
     while(ptr != NULL){
         printf("\t%s = %g\n",ptr->vName, const_getVal(ptr->vName));
         ptr = ptr->next;
