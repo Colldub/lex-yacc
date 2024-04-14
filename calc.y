@@ -93,24 +93,11 @@ existing_name
     ;
 %%
 
-void initList(){
-    addConst("PI", 3.14159);
-    addConst("PHI", 1.61803);
-}
+
 
 struct sym * list_lookup(char *s)
 {
     struct sym *ptr = sym_head;
-    while(ptr != NULL){
-        if(strcmp(ptr->vName, s) == 0){
-            return ptr;
-        }
-        ptr = ptr->next;
-    }
-}
-
-struct sym * const_lookup(char *s){
-    struct sym *ptr = const_head;
     while(ptr != NULL){
         if(strcmp(ptr->vName, s) == 0){
             return ptr;
@@ -130,15 +117,6 @@ double list_getVal(char * s)
     }
 }
 
-double const_getVal(char * s){
-    struct sym *ptr = const_head;
-    while(ptr != NULL){
-        if(strcmp(ptr->vName, s) == 0){
-            return ptr->value;
-        }
-        ptr = ptr->next;
-    }
-}
 
 int list_count(void)
 {
@@ -150,20 +128,6 @@ int list_count(void)
         count ++;
     }
     return count;
-}
-
-void addConst(char *name, double value){
-        struct sym *ptr = (struct sym *)malloc(sizeof(struct sym));
-        
-        ptr->vName = strdup(name);
-        ptr->value = value;
-
-        if (const_head == NULL) {
-            ptr->next = NULL;
-        } else {
-            ptr->next = const_head;
-        }
-        const_head = ptr;
 }
 
 void addSym(char *name, double value){
@@ -180,13 +144,7 @@ void addSym(char *name, double value){
         sym_head = ptr;
 }
 
-void printConsts(){
-    struct sym *ptr = const_head;
-    while(ptr != NULL){
-        printf("%t%s = %d",ptr->vName, ptr->value);
-        ptr = ptr->next;
-    }
-}
+
 
 void printALL(){
     // Print count
@@ -237,6 +195,53 @@ void sortArray(char **array, int size) {
                 array[j + 1] = temp;
             }
         }
+    }
+}
+
+void initList(){
+    addConst("PI", 3.14159);
+    addConst("PHI", 1.61803);
+}
+
+void addConst(char *name, double value){
+        struct sym *ptr = (struct sym *)malloc(sizeof(struct sym));
+    
+        ptr->vName = strdup(name);
+        ptr->value = value;
+
+        if (const_head == NULL) {
+            ptr->next = NULL;
+        } else {
+            ptr->next = const_head;
+        }
+        const_head = ptr;
+}
+
+struct sym * const_lookup(char *s){
+    struct sym *ptr = const_head;
+    while(ptr != NULL){
+        if(strcmp(ptr->vName, s) == 0){
+            return ptr;
+        }
+        ptr = ptr->next;
+    }
+}
+
+double const_getVal(char * s){
+    struct sym *ptr = const_head;
+    while(ptr != NULL){
+        if(strcmp(ptr->vName, s) == 0){
+            return ptr->value;
+        }
+        ptr = ptr->next;
+    }
+}
+
+void printConsts(){
+    struct sym *ptr = const_head;
+    while(ptr != NULL){
+        printf("%t%s = %d",ptr->vName, ptr->value);
+        ptr = ptr->next;
     }
 }
 
