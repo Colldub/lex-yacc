@@ -182,6 +182,10 @@ void listSyms() {
     // SORT ARRAY
     sortArray(arr, size);
 
+    for (int i = 0; i < size; i++){
+        printf("section: %d = %s", i, arr[i]);
+    }
+
     printf("Printing sorted symbols...\n");
 
     // PRINT OUT SYMBOLS
