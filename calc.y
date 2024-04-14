@@ -157,32 +157,43 @@ void printALL(){
     listSyms();
 }
 
-void listSyms(){
+void listSyms() {
+    printf("Entering listSyms()\n");
+
     struct sym *ptr = sym_head;
-    if(ptr == NULL){
+    if (ptr == NULL) {
         puts("ptr error");
         exit(1);
     }
+
+    printf("Building array of symbol names...\n");
 
     char * arr[list_count()];
     int itt = 0;
     int size = list_count();
 
-    while (ptr != NULL){
-       arr[itt++] = ptr->vName;
-       ptr = ptr->next;
+    while (ptr != NULL) {
+        arr[itt++] = ptr->vName;
+        ptr = ptr->next;
     }
 
-    //SORT ARRAY////////////
+    printf("Sorting array of symbol names...\n");
+
+    // SORT ARRAY
     sortArray(arr, size);
-    
-    //PRINT OUT SYMBOLS////////
-    for(int i = 0; i < size; i ++){
+
+    printf("Printing sorted symbols...\n");
+
+    // PRINT OUT SYMBOLS
+    for (int i = 0; i < size; i++) {
         ptr = list_lookup(arr[i]);
 
-        printf("%s = %d\n", ptr->vName, ptr->value);
+        printf("%s = %f\n", ptr->vName, ptr->value);
     }
+
+    printf("Exiting listSyms()\n");
 }
+
 
 void sortArray(char **array, int size) {
     // Bubble sort algorithm
