@@ -232,7 +232,7 @@ void addConst(char *name, double value){
             puts("added second value");
         }
         const_head = ptr;
-        printf("ptr->name: %s\n", ptr->name);
+        printf("ptr->vName: %s\n", ptr->vName);
         if(ptr == NULL){
             printf("Allocation error 11");
         }
