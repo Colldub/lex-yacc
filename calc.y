@@ -257,7 +257,7 @@ double const_getVal(char * s){
 void printConsts(){
     puts("Printing out consts");
     struct sym *ptr = const_head;
-    printf("ptr: %s = &f", ptr->vName, const_getVal(ptr->vName));
+    printf("ptr: %s = %s\n", ptr->vName, const_getVal(ptr->vName));
     while(ptr != NULL){
         printf("\t%s = %d\n",ptr->vName, const_getVal(ptr->vName));
         ptr = ptr->next;
