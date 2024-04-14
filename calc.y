@@ -232,6 +232,10 @@ void addConst(char *name, double value){
             puts("added second value");
         }
         const_head = ptr;
+        printf("ptr->name: %s\n", ptr->name);
+        if(ptr == NULL){
+            printf("Allocation error 11");
+        }
         printf("setting ptr: %s = %s\n", ptr->vName, const_getVal(ptr->vName));
 
 }
