@@ -183,7 +183,7 @@ void addSym(char *name, double value){
 void printConsts(){
     struct sym *ptr = const_head;
     while(ptr != NULL){
-        printf("%t%s = %d",ptr->name, ptr->value);
+        printf("%t%s = %d",ptr->vName, ptr->value);
         ptr = ptr->next;
     }
 }
