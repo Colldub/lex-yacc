@@ -31,6 +31,7 @@ extern int yylex();
 
 %token <name> NEW_NAME
 %token <symptr> EXISTING_NAME
+%token <symptr> CONST_NAME
 %token <dval> NUMBER
 %token <character> PRINT
 %left '-' '+'
@@ -39,6 +40,7 @@ extern int yylex();
 
 %type <name> new_name
 %type <symptr> existing_name
+%type <symptr> const_name
 %type <dval> expression
 %%
 
@@ -53,6 +55,7 @@ statement
     : PRINT { printALL(); }
     | new_name '=' expression { addSym($1, $3); }
     | existing_name '=' expression { $1->value = $3; }
+    | const_name '=' expression { puts("Can not edit Constant variables"); }
     | expression { printf("= %g\n", $1); }
     | '?' { printf("num-syms: %d\n", list_count()); }
     ;
@@ -72,8 +75,13 @@ expression
     | '-' expression %prec UMINUS { $$ = -$2; }
     | '(' expression ')' { $$ = $2; }
     | NUMBER
+    | const_name { $$ = const_getVal ($1->vName); }
     | existing_name { $$ = list_getVal($1->vName); }
     | new_name { $$ = 0; addSym ($1, 0);}
+    ;
+
+const_name
+    : CONST_NAME { $$ = $1; }
     ;
 
 new_name 
@@ -86,17 +94,23 @@ existing_name
 %%
 
 void initList(){
-    addSym("PI", 3.14159);
-    addSym("PHI", 1.61803);
+    addConst("PI", 3.14159);
+    addConst("PHI", 1.61803);
 }
 
-void printConsts(){
-
-}
-
-struct sym * list_lookup(char * s)
+struct sym * list_lookup(char *s)
 {
     struct sym *ptr = sym_head;
+    while(ptr != NULL){
+        if(strcmp(ptr->vName, s) == 0){
+            return ptr;
+        }
+        ptr = ptr->next;
+    }
+}
+
+struct sym * const_lookup(char *s){
+    struct sym *ptr = const_head;
     while(ptr != NULL){
         if(strcmp(ptr->vName, s) == 0){
             return ptr;
@@ -108,6 +122,16 @@ struct sym * list_lookup(char * s)
 double list_getVal(char * s)
 {
     struct sym *ptr = sym_head;
+    while(ptr != NULL){
+        if(strcmp(ptr->vName, s) == 0){
+            return ptr->value;
+        }
+        ptr = ptr->next;
+    }
+}
+
+double const_getVal(char * s){
+    struct sym *ptr = const_head;
     while(ptr != NULL){
         if(strcmp(ptr->vName, s) == 0){
             return ptr->value;
@@ -128,21 +152,40 @@ int list_count(void)
     return count;
 }
 
-
-void addSym(char *name, double value,){
+void addConst(char *name, double value){
         struct sym *ptr = (struct sym *)malloc(sizeof(struct sym));
-        //node_t *p= (node_t *)malloc(sizeof(node_t)
-        //List * listPointer = (List *) malloc(sizeof(List));
+        
+        ptr->vName = strdup(name);
+        ptr->value = value;
+
+        if (const_head == NULL) {
+            ptr->next = NULL;
+        } else {
+            ptr->next = const_head;
+        }
+        const_head = ptr;
+}
+
+void addSym(char *name, double value){
+        struct sym *ptr = (struct sym *)malloc(sizeof(struct sym));
     
         ptr->vName = strdup(name);
         ptr->value = value;
 
-        if (head == NULL) {
+        if (sym_head == NULL) {
             ptr->next = NULL;
         } else {
-            ptr->next = head;
+            ptr->next = sym_head;
         }
-        head = ptr;
+        sym_head = ptr;
+}
+
+void printConsts(){
+    struct *sym ptr = const_head;
+    while(ptr != NULL){
+        printf("%t%s = %d",ptr->name, ptr->value);
+        ptr = ptr->next;
+    }
 }
 
 void printALL(){
@@ -150,6 +193,7 @@ void printALL(){
     printf("Number of Symbols: %d\n", list_count());
     
     // Print consts
+    printConsts();
 
     // Print syms
     listSyms();
@@ -170,13 +214,6 @@ void listSyms(){
        arr[itt++] = ptr->vName;
        ptr = ptr->next;
     }
-/*
-    puts("array moved");
-    for(int i = 0; i < size; i ++){ // Print out array for test
-        printf("[%s] ", arr[i]);   //
-    }                               // 
-    printf("\n");                   //////
-*/
 
     //SORT ARRAY////////////
     sortArray(arr, size);

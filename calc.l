@@ -17,8 +17,11 @@
 [ \t] ; /* ignore whitespace */
 
 [A-Za-z][A-Za-z0-9]* {
-        struct sym *symbol = list_lookup(yytext);
+        struct sym *symbol = const_lookup(yytext);
         if(symbol != NULL){
+            yylval.symptr = symbol;
+            return CONST_NAME;
+        }else if(symbol != NULL){
             yylval.symptr = symbol;
             //puts("symbol is old");
             return EXISTING_NAME;

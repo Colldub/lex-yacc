@@ -15,11 +15,15 @@
    
     void addSym(char *name, double value);
     struct sym * list_lookup(char *name);
+    struct sym * const_lookup(char *name);
     double list_getVal(char *name);
+    double const_getVal(char *name);
     int list_count(void);
     void listSyms();
     void printAll();
     void sortArray(char**, int);
     void initList();
+    void printConsts();
+    void addConst(char*, double);
 
 #endif /* SYMTBL_H */
